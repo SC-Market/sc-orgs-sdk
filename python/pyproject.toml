@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sc-orgs-sdk"
+version = "0.1.0"
+description = "Typed client for the SC Orgs public API, with webhook signature verification (Star Citizen org hub)."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+dependencies = []
+keywords = ["star-citizen", "sc-orgs", "api", "sdk", "webhooks"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://sc-orgs.space/developers"
+Source = "https://github.com/SC-Market/sc-orgs-sdk"
+Issues = "https://github.com/SC-Market/sc-orgs-sdk/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sc_orgs_sdk"]
+exclude = ["**/._*"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/sc_orgs_sdk", "README.md", "LICENSE", "pyproject.toml"]
+exclude = ["**/._*"]

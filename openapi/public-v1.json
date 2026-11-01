@@ -1,0 +1,1600 @@
+{
+  "openapi": "3.0.0",
+  "components": {
+    "examples": {},
+    "headers": {},
+    "parameters": {},
+    "requestBodies": {},
+    "responses": {},
+    "schemas": {
+      "UserRef": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "rsi_handle": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "rsi_handle"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OrganizationResource": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string",
+            "description": "RSI SID, e.g. HRMS."
+          },
+          "name": {
+            "type": "string"
+          },
+          "logo_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "banner_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "headline": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "description": "Markdown."
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "playstyle_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "focus_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "member_count": {
+            "type": "number",
+            "format": "double",
+            "description": "Active members who don't hide their membership."
+          },
+          "rating": {
+            "properties": {
+              "count": {
+                "type": "number",
+                "format": "double"
+              },
+              "average": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "required": [
+              "count",
+              "average"
+            ],
+            "type": "object"
+          },
+          "discord_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "website_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string"
+          },
+          "rsi_url": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "member_count_including_hidden": {
+            "type": "number",
+            "format": "double",
+            "description": "With a key (org:read): active members including hidden ones."
+          },
+          "discord_server_linked": {
+            "type": "boolean",
+            "description": "With a key (org:read): the Discord bot is linked to a server."
+          },
+          "owner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserRef"
+              }
+            ],
+            "nullable": true,
+            "description": "With a key (org:read)."
+          }
+        },
+        "required": [
+          "id",
+          "sid",
+          "name",
+          "logo_url",
+          "banner_url",
+          "headline",
+          "description",
+          "languages",
+          "playstyle_tags",
+          "focus_tags",
+          "member_count",
+          "rating",
+          "discord_url",
+          "website_url",
+          "url",
+          "rsi_url",
+          "created_at"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "OrganizationResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/OrganizationResource"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PublicErrorCode": {
+        "type": "string",
+        "enum": [
+          "VALIDATION_ERROR",
+          "UNAUTHORIZED",
+          "FORBIDDEN",
+          "NOT_FOUND",
+          "CONFLICT",
+          "RATE_LIMIT_EXCEEDED",
+          "INTERNAL_SERVER_ERROR",
+          "SERVICE_UNAVAILABLE",
+          "INSUFFICIENT_SCOPE",
+          "KEY_EXPIRED",
+          "KEY_REVOKED",
+          "KEY_SUSPENDED"
+        ]
+      },
+      "Record_string.unknown_": {
+        "properties": {},
+        "additionalProperties": {},
+        "type": "object",
+        "description": "Construct a type with a set of properties K of type T"
+      },
+      "PublicValidationError": {
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "message"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PublicErrorResponse": {
+        "description": "The error envelope.",
+        "properties": {
+          "error": {
+            "properties": {
+              "validationErrors": {
+                "items": {
+                  "$ref": "#/components/schemas/PublicValidationError"
+                },
+                "type": "array"
+              },
+              "details": {
+                "$ref": "#/components/schemas/Record_string.unknown_"
+              },
+              "message": {
+                "type": "string"
+              },
+              "code": {
+                "$ref": "#/components/schemas/PublicErrorCode"
+              }
+            },
+            "required": [
+              "message",
+              "code"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MemberRoleRef": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "rank"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MemberRank": {
+        "properties": {
+          "track": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "string"
+          },
+          "tier": {
+            "type": "number",
+            "format": "double"
+          },
+          "icon_url": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "track",
+          "rank",
+          "tier",
+          "icon_url"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MemberResource": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "rsi_handle": {
+            "type": "string"
+          },
+          "avatar_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_hidden": {
+            "type": "boolean",
+            "description": "Hidden from the public member list; members (and keys) still see them."
+          },
+          "roles": {
+            "items": {
+              "$ref": "#/components/schemas/MemberRoleRef"
+            },
+            "type": "array"
+          },
+          "ranks": {
+            "items": {
+              "$ref": "#/components/schemas/MemberRank"
+            },
+            "type": "array"
+          },
+          "joined_at": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "rsi_handle",
+          "avatar_url",
+          "is_hidden",
+          "roles",
+          "ranks",
+          "joined_at"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MemberList": {
+        "properties": {
+          "members": {
+            "items": {
+              "$ref": "#/components/schemas/MemberResource"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "page": {
+            "type": "number",
+            "format": "double"
+          },
+          "page_size": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "members",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MemberListResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MemberList"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MemberResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MemberResource"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RoleResource": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "rank": {
+            "type": "number",
+            "format": "double"
+          },
+          "is_system_role": {
+            "type": "boolean"
+          },
+          "discord_role_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "rank",
+          "is_system_role",
+          "discord_role_id"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RoleList": {
+        "properties": {
+          "roles": {
+            "items": {
+              "$ref": "#/components/schemas/RoleResource"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "page": {
+            "type": "number",
+            "format": "double"
+          },
+          "page_size": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "roles",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RoleListResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/RoleList"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "KeyInfo": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "display_prefix": {
+            "type": "string",
+            "description": "The first characters of the key, e.g. sco_live_4fQ9."
+          },
+          "realm": {
+            "type": "string",
+            "enum": [
+              "live",
+              "test"
+            ],
+            "description": "live for real orgs, test for test-realm orgs (the sandbox)."
+          },
+          "expires_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "display_prefix",
+          "realm",
+          "expires_at"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "KeyOrganization": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sid",
+          "name"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MeResource": {
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/KeyInfo"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/KeyOrganization"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "description": "Scopes the key was given."
+          },
+          "effective_scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "description": "Scopes it can use right now: its scopes that its creator's current permissions still allow."
+          }
+        },
+        "required": [
+          "key",
+          "organization",
+          "scopes",
+          "effective_scopes"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MeResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MeResource"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EventStatus": {
+        "type": "string",
+        "enum": [
+          "upcoming",
+          "ongoing",
+          "past",
+          "cancelled"
+        ]
+      },
+      "EventResource": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "description": "Markdown."
+          },
+          "start_time": {
+            "type": "string"
+          },
+          "end_time": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_public": {
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventStatus"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "playstyle_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "activity_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "max_participants": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "rsvp_count": {
+            "type": "number",
+            "format": "double"
+          },
+          "series_id": {
+            "type": "string",
+            "nullable": true,
+            "description": "The recurring series this date belongs to (its first date's id), or null."
+          },
+          "created_by": {
+            "properties": {
+              "rsi_handle": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rsi_handle"
+            ],
+            "type": "object",
+            "nullable": true,
+            "description": "Anonymous callers get the handle only."
+          },
+          "banner_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated_at": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "start_time",
+          "end_time",
+          "location",
+          "is_public",
+          "status",
+          "languages",
+          "playstyle_tags",
+          "activity_tags",
+          "max_participants",
+          "rsvp_count",
+          "series_id",
+          "created_by",
+          "banner_url",
+          "url",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EventList": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/EventResource"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "page": {
+            "type": "number",
+            "format": "double"
+          },
+          "page_size": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "events",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EventListResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/EventList"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EventResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/EventResource"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RsvpResource": {
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserRef"
+          },
+          "status": {
+            "type": "string"
+          },
+          "registered_at": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "user",
+          "status",
+          "registered_at"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RsvpList": {
+        "properties": {
+          "rsvps": {
+            "items": {
+              "$ref": "#/components/schemas/RsvpResource"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "page": {
+            "type": "number",
+            "format": "double"
+          },
+          "page_size": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "rsvps",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RsvpListResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/RsvpList"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "apiKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "sco_live_… or sco_test_…",
+        "description": "An org API key, created in Manage → API: Authorization: Bearer sco_live_…. Keys act for their organization within the scopes listed on each operation."
+      }
+    }
+  },
+  "info": {
+    "title": "SC Orgs Public API",
+    "version": "1.0.0",
+    "description": "Read your organization's profile, roster, roles, events and RSVPs with an org API key, and get webhooks when they change. Guide and examples: https://sc-orgs.space/developers",
+    "license": {
+      "name": "MIT"
+    },
+    "contact": {
+      "name": "SC Orgs",
+      "url": "https://sc-orgs.space/developers"
+    }
+  },
+  "paths": {
+    "/orgs/{org}": {
+      "get": {
+        "operationId": "GetOrganization",
+        "responses": {
+          "200": {
+            "description": "The organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "id": "4b2c0000-0000-4000-8000-000000000002",
+                        "sid": "HRMS",
+                        "name": "Hermes Logistics",
+                        "logo_url": null,
+                        "banner_url": null,
+                        "headline": "Hauling and escort",
+                        "description": "We move cargo.",
+                        "languages": [
+                          "en"
+                        ],
+                        "playstyle_tags": [
+                          "casual"
+                        ],
+                        "focus_tags": [
+                          "trading"
+                        ],
+                        "member_count": 12,
+                        "rating": {
+                          "average": 4.5,
+                          "count": 8
+                        },
+                        "discord_url": null,
+                        "website_url": null,
+                        "url": "https://sc-orgs.space/communities/HRMS",
+                        "rsi_url": "https://robertsspaceindustries.com/orgs/HRMS",
+                        "created_at": "2026-10-20T12:00:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "The org's profile. Anonymous callers get its public fields; a key with\n`org:read` adds the member view (member count including hidden members,\nowner, Discord link status). Test-realm orgs (like the sandbox) are only\nvisible to their own keys.",
+        "summary": "Get an organization",
+        "tags": [
+          "Public: Organizations"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "org:read"
+            ]
+          },
+          {}
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/orgs/{org}/members": {
+      "get": {
+        "operationId": "ListMembers",
+        "responses": {
+          "200": {
+            "description": "A page of members",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberListResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "members": [
+                          {
+                            "id": "a1d30000-0000-4000-8000-000000000003",
+                            "rsi_handle": "~alice",
+                            "avatar_url": null,
+                            "is_hidden": false,
+                            "roles": [
+                              {
+                                "id": "r0000000-0000-4000-8000-000000000080",
+                                "name": "Admin",
+                                "rank": 80
+                              }
+                            ],
+                            "ranks": [
+                              {
+                                "track": "Pilot",
+                                "rank": "Lieutenant",
+                                "tier": 3,
+                                "icon_url": null
+                              }
+                            ],
+                            "joined_at": "2026-10-20T12:05:00.000Z"
+                          }
+                        ],
+                        "total": 14,
+                        "page": 1,
+                        "page_size": 25
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The key lacks members:read",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "The roster, sorted by join date. Hidden members are included (they hide\nfrom the public, not from the org). Never includes Discord ids, last\nactivity or any account details.",
+        "summary": "List members",
+        "tags": [
+          "Public: Members"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "members:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number, from 1.",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "description": "1-100 (default 25); larger values are clamped to 100.",
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "description": "Only members holding this role.",
+            "in": "query",
+            "name": "role_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Only members who joined at or after this time (ISO 8601).",
+            "in": "query",
+            "name": "joined_since",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Handle prefix, at least 3 characters.",
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/orgs/{org}/members/{member}": {
+      "get": {
+        "operationId": "GetMember",
+        "responses": {
+          "200": {
+            "description": "The member",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "id": "a1d30000-0000-4000-8000-000000000003",
+                        "rsi_handle": "~alice",
+                        "avatar_url": null,
+                        "is_hidden": false,
+                        "roles": [
+                          {
+                            "id": "r0000000-0000-4000-8000-000000000080",
+                            "name": "Admin",
+                            "rank": 80
+                          }
+                        ],
+                        "ranks": [
+                          {
+                            "track": "Pilot",
+                            "rank": "Lieutenant",
+                            "tier": 3,
+                            "icon_url": null
+                          }
+                        ],
+                        "joined_at": "2026-10-20T12:05:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not a member of this org",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "One member, by user id or `rsi:{handle}` (e.g. `rsi:~alice`). Anyone who\nisn't an active member of the org is a 404.",
+        "summary": "Get a member",
+        "tags": [
+          "Public: Members"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "members:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "member",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/orgs/{org}/roles": {
+      "get": {
+        "operationId": "ListRoles",
+        "responses": {
+          "200": {
+            "description": "The roles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleListResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "roles": [
+                          {
+                            "id": "r0000000-0000-4000-8000-000000000100",
+                            "name": "Owner",
+                            "description": null,
+                            "rank": 100,
+                            "is_system_role": true,
+                            "discord_role_id": null
+                          },
+                          {
+                            "id": "r0000000-0000-4000-8000-000000000080",
+                            "name": "Admin",
+                            "description": null,
+                            "rank": 80,
+                            "is_system_role": true,
+                            "discord_role_id": "1300000000000000001"
+                          }
+                        ],
+                        "total": 2,
+                        "page": 1,
+                        "page_size": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "The org's roles, highest rank first (at most 200, one page). No\npermission lists.",
+        "summary": "List roles",
+        "tags": [
+          "Public: Roles"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "roles:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/me": {
+      "get": {
+        "operationId": "GetMe",
+        "responses": {
+          "200": {
+            "description": "The key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "key": {
+                          "id": "8f0e2c1a-0000-4000-8000-000000000001",
+                          "name": "Hermes bot",
+                          "display_prefix": "sco_test_7Hq2",
+                          "realm": "test",
+                          "expires_at": "2027-01-25T00:00:00.000Z"
+                        },
+                        "organization": {
+                          "id": "4b2c0000-0000-4000-8000-000000000002",
+                          "sid": "~SANDBOX",
+                          "name": "~Sandbox Org"
+                        },
+                        "scopes": [
+                          "org:read",
+                          "members:read",
+                          "roles:read",
+                          "events:read",
+                          "rsvps:read"
+                        ],
+                        "effective_scopes": [
+                          "org:read",
+                          "members:read",
+                          "roles:read",
+                          "events:read"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid, expired, revoked or suspended key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "The key you called with: its org, scopes and expiry. Works with any\nvalid key; needs no scope.\n\nA scope missing from `effective_scopes` was dropped because the member\nwho created the key no longer holds the permission it needs.",
+        "summary": "Inspect your key",
+        "tags": [
+          "Public: Keys"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "parameters": []
+      }
+    },
+    "/orgs/{org}/events": {
+      "get": {
+        "operationId": "ListEvents",
+        "responses": {
+          "200": {
+            "description": "A page of events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventListResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "events": [
+                          {
+                            "id": "e5f10000-0000-4000-8000-000000000004",
+                            "title": "Op Jumptown",
+                            "description": "Bring a fighter.",
+                            "start_time": "2026-10-30T20:00:00.000Z",
+                            "end_time": "2026-10-30T22:00:00.000Z",
+                            "location": "Stanton",
+                            "is_public": false,
+                            "status": "upcoming",
+                            "languages": [
+                              "en"
+                            ],
+                            "playstyle_tags": [
+                              "competitive"
+                            ],
+                            "activity_tags": [
+                              "pvp"
+                            ],
+                            "max_participants": 20,
+                            "rsvp_count": 7,
+                            "series_id": null,
+                            "created_by": {
+                              "id": "a1d30000-0000-4000-8000-000000000003",
+                              "rsi_handle": "~alice"
+                            },
+                            "banner_url": null,
+                            "url": "https://sc-orgs.space/events/e5f10000-0000-4000-8000-000000000004",
+                            "created_at": "2026-10-25T10:00:00.000Z",
+                            "updated_at": "2026-10-26T08:12:00.000Z"
+                          }
+                        ],
+                        "total": 1,
+                        "page": 1,
+                        "page_size": 25
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Events overlapping a time window, by start time. The window defaults to\nnow through 30 days ahead and can span at most 90 days. Without\n`status`, cancelled events are left out.",
+        "summary": "List events",
+        "tags": [
+          "Public: Events"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "events:read"
+            ]
+          },
+          {}
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Window start (ISO 8601). Default: now.",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Window end (ISO 8601). Default: from + 30 days.",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "upcoming, ongoing, past or cancelled.",
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/EventStatus"
+            }
+          },
+          {
+            "description": "Page number, from 1.",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "description": "1-100 (default 25); larger values are clamped to 100.",
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/orgs/{org}/events/{event_id}": {
+      "get": {
+        "operationId": "GetEvent",
+        "responses": {
+          "200": {
+            "description": "The event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "id": "e5f10000-0000-4000-8000-000000000004",
+                        "title": "Op Jumptown",
+                        "description": "Bring a fighter.",
+                        "start_time": "2026-10-30T20:00:00.000Z",
+                        "end_time": "2026-10-30T22:00:00.000Z",
+                        "location": "Stanton",
+                        "is_public": false,
+                        "status": "upcoming",
+                        "languages": [
+                          "en"
+                        ],
+                        "playstyle_tags": [
+                          "competitive"
+                        ],
+                        "activity_tags": [
+                          "pvp"
+                        ],
+                        "max_participants": 20,
+                        "rsvp_count": 7,
+                        "series_id": null,
+                        "created_by": {
+                          "id": "a1d30000-0000-4000-8000-000000000003",
+                          "rsi_handle": "~alice"
+                        },
+                        "banner_url": null,
+                        "url": "https://sc-orgs.space/events/e5f10000-0000-4000-8000-000000000004",
+                        "created_at": "2026-10-25T10:00:00.000Z",
+                        "updated_at": "2026-10-26T08:12:00.000Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such event in this org (or it is members-only)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "One event. A members-only event is a 404 without `events:read`.",
+        "summary": "Get an event",
+        "tags": [
+          "Public: Events"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "events:read"
+            ]
+          },
+          {}
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/orgs/{org}/events/{event_id}/rsvps": {
+      "get": {
+        "operationId": "ListRsvps",
+        "responses": {
+          "200": {
+            "description": "A page of RSVPs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RsvpListResponse"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "data": {
+                        "rsvps": [
+                          {
+                            "user": {
+                              "id": "a1d30000-0000-4000-8000-000000000003",
+                              "rsi_handle": "~alice"
+                            },
+                            "status": "registered",
+                            "registered_at": "2026-10-25T11:00:00.000Z"
+                          }
+                        ],
+                        "total": 7,
+                        "page": 1,
+                        "page_size": 25
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The key lacks rsvps:read",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "description": "Who signed up for an event, by sign-up time. The count alone is public\n(`rsvp_count` on the event).",
+        "summary": "List RSVPs",
+        "tags": [
+          "Public: Events"
+        ],
+        "security": [
+          {
+            "apiKey": [
+              "events:read",
+              "rsvps:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page number, from 1.",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "description": "1-100 (default 25); larger values are clamped to 100.",
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.sc-orgs.space/api/v1",
+      "description": "Production"
+    }
+  ]
+}

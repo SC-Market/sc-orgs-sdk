@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2022", "DOM"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "declaration": true,
+    "sourceMap": false,
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "outDir": "dist/esm",
+    "rootDir": "src",
+    "types": []
+  },
+  "include": ["src"]
+}

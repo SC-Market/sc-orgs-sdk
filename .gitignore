@@ -1,0 +1,14 @@
+node_modules/
+dist/
+*.tgz
+.DS_Store
+# macOS metadata files on exFAT/network volumes
+._*
+# Python
+__pycache__/
+*.py[cod]
+python/build/
+python/dist/
+*.egg-info/
+.venv/
+examples/.state*.json

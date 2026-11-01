@@ -1,0 +1,13 @@
+{
+  "note": "Signed by the SC Orgs backend's own signing.ts (services/webhooks/signing.ts), two secrets as during a rotation.",
+  "secret": "whsec_BwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwc=",
+  "previous_secret": "whsec_CQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk=",
+  "timestamp": 1793491200,
+  "headers": {
+    "webhook-id": "msg_example",
+    "webhook-timestamp": "1793491200",
+    "webhook-signature": "v1,Ys6kPdpc/lTArlR62xVwZ8VAhw75VjWaP5nxbvPOKoE= v1,lPnDcWuTQrXdaDt8K9KSRv1iXTG+FO2S/717zaAxV1k="
+  },
+  "body": "{\"id\":\"evt_example\",\"type\":\"member.joined\",\"api_version\":\"v1\",\"occurred_at\":\"2026-11-01T00:00:00.000Z\",\"organization\":{\"id\":\"370be5e7-2122-4385-aacf-5e7bcdb497f2\",\"sid\":\"~SANDBOX\"},\"data\":{\"member\":{\"id\":\"m1\",\"rsi_handle\":\"~sandbox-dave\"},\"via\":\"invite\"}}",
+  "server_verifies": true
+}
