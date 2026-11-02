@@ -32,7 +32,7 @@ It also covers webhooks: `verifyWebhook()`, `constructEvent()` and `signWebhook(
 Node 18 or later, or any runtime with `fetch` and Web Crypto (Deno, Bun, Cloudflare Workers). The package has no runtime dependencies, and it ships both ESM and CommonJS builds.
 
 ```sh
-npm install @sc-orgs/sdk   # once it's published; until then, see "Use it before it's on npm"
+npm install @sc-orgs/sdk
 ```
 
 ```ts
@@ -137,7 +137,7 @@ Nothing is published automatically, and there is no CI. To release:
 4. **PyPI:** `cd python && python3 -m pip install --upgrade build twine && python3 -m build && python3 -m twine upload dist/*`. The username is `__token__`, and the password is a PyPI API token.
 5. Tag the release: `git tag v0.1.0 && git push --tags`.
 
-### Use it before it's on npm
+### Use an unreleased build
 
 Clone this repo and run `npm install && npm run build && npm pack`. Then, in your project, run `npm install /path/to/sc-orgs-sdk-0.1.0.tgz`. For Python: `pip install ./python`.
 
